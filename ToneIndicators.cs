@@ -4,7 +4,7 @@ using MCGalaxy.Events.ServerEvents;
 using MCGalaxy.Events.PlayerEvents;
 
 
-// REQUIRES THE VERY LATEST VERSION OF MCGALAXY!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// REQUIRES THE LATEST DEVELOPMENT BUILD OF MCGALAXY!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 // This version has been edited and changed by Goodly. Thank you so much!
 
