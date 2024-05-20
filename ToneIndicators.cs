@@ -32,7 +32,7 @@ namespace PluginToneIndicators
                 string startOfString = msg.Substring(0, index);
                 string endOfString = msg.Substring(index + length);
                 string cleanString = startOfString + endOfString;
-                msg = ("&7[&aJOKING&7] " + cleanString);
+                msg = ("&7[&ajoking&7] " + cleanString);
             }
             else if (msg.CaselessContains("/s"))
             {
@@ -42,7 +42,7 @@ namespace PluginToneIndicators
                 string startOfString = msg.Substring(0, index);
                 string endOfString = msg.Substring(index + length);
                 string cleanString = startOfString + endOfString;
-                msg = ("&7[&aSARCASM&7] " + cleanString);
+                msg = ("&7[&asarcasm&7] " + cleanString);
             }
             else if (msg.CaselessContains("/hj"))
             {
@@ -52,7 +52,7 @@ namespace PluginToneIndicators
                 string startOfString = msg.Substring(0, index);
                 string endOfString = msg.Substring(index + length);
                 string cleanString = startOfString + endOfString;
-                msg = ("&7[&aHALF-JOKING&7] " + cleanString);
+                msg = ("&7[&ahalf-joking&7] " + cleanString);
             }
             else if (msg.CaselessContains("/srs"))
             {
@@ -62,7 +62,7 @@ namespace PluginToneIndicators
                 string startOfString = msg.Substring(0, index);
                 string endOfString = msg.Substring(index + length);
                 string cleanString = startOfString + endOfString;
-                msg = ("&7[&aSERIOUS&7] " + cleanString);
+                msg = ("&7[&aserious&7] " + cleanString);
             }
             else if (msg.CaselessContains("/srs"))
             {
@@ -72,7 +72,7 @@ namespace PluginToneIndicators
                 string startOfString = msg.Substring(0, index);
                 string endOfString = msg.Substring(index + length);
                 string cleanString = startOfString + endOfString;
-                msg = ("&7[&aNOT SERIOUS&7] " + cleanString);
+                msg = ("&7[&anot serious&7] " + cleanString);
             }
             else if (msg.CaselessContains("/r"))
             {
@@ -82,7 +82,7 @@ namespace PluginToneIndicators
                 string startOfString = msg.Substring(0, index);
                 string endOfString = msg.Substring(index + length);
                 string cleanString = startOfString + endOfString;
-                msg = ("&7[&aROMANTIC&7] " + cleanString);
+                msg = ("&7[&aromantic&7] " + cleanString);
             }
             else if (msg.CaselessContains("/t"))
             {
@@ -92,7 +92,7 @@ namespace PluginToneIndicators
                 string startOfString = msg.Substring(0, index);
                 string endOfString = msg.Substring(index + length);
                 string cleanString = startOfString + endOfString;
-                msg = ("&7[&aTEASING&7] " + cleanString);
+                msg = ("&7[&ateasing&7] " + cleanString);
             }
         }
     }
