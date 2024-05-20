@@ -13,7 +13,7 @@ namespace PluginToneIndicators
 {
     public sealed class ToneIndicators : Plugin 
     {
-        public override string name { get { return "tones"; } }
+        public override string name { get { return "ToneIndicators"; } }
 
         public override string MCGalaxy_Version { get { return "1.9.4.9"; } }
         
