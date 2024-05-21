@@ -5,7 +5,8 @@ using MCGalaxy.Events.PlayerEvents;
 
 
 // REQUIRES THE LATEST DEVELOPMENT BUILD OF MCGALAXY!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// Will not work with tone indicators or other chat plugins probably.
+
+// tone indicators code fixed and edited by goodly thank u!!!
 
 
 namespace PluginFancyChat
@@ -32,13 +33,25 @@ namespace PluginFancyChat
             string result = originalString.Substring(startIndex);
             return result;
         }
+        
+        public static string GetChatMessageBadge(LevelPermission rank) {
+            if (rank == LevelPermission.Owner) { return "&c|"; }
+            else if (rank == LevelPermission.Guest) { return "&7|"; }
+            else if (rank == LevelPermission.Builder) { return "&2|"; }
+            else if (rank == LevelPermission.AdvBuilder) { return "&9|"; }
+            else if (rank == LevelPermission.Operator) { return "&b|"; }
+            else if (rank == LevelPermission.Admin) { return "&e|"; }
+            
+            return "&0|";
+        }
 
         public static void OnChat(ChatScope scope, Player p, ref string msg, object arg, ref ChatMessageFilter filter, bool relay) {
             string sentMessage = msg;
             string displayName = p.DisplayName;
             string mapName = p.Level.MapName.ToUpper();
             string cleanedMessage = CleanChatMessage(sentMessage);
-            msg = "&8[&a" + mapName + "&8] &3" + displayName + ": &7" + cleanedMessage;
+            
+            msg = "&8[&a" + mapName + "&8] " + GetChatMessageBadge(p.Rank) + " &3" + displayName + ": " + cleanedMessage;
         }
     }
 }
