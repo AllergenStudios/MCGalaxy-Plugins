@@ -9,6 +9,7 @@ using System.Reflection;
 
 // You'll have to edit some code to configure this onew
 // Dont worry, I laid it out easily. just scroll down until you get to the Load method
+// You will need the latest dev build of mcgalaxy
 
 namespace PluginSignBlock
 {
