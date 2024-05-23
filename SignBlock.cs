@@ -8,8 +8,7 @@ using MCGalaxy.Blocks.Extended;
 using System.Reflection;
 
 // You'll have to edit some code to configure this onew
-// Dont worry, I laid it out easily. just scroll down until you get to the Load method
-// You will need the latest dev build of MCGalaxy, maybe, try it without though first.
+// Dont worry, I laid it out easily. just scroll down past the name, version, and creator stuff.
 
 namespace PluginSignBlock
 {
@@ -33,7 +32,7 @@ namespace PluginSignBlock
             blockIDs.Add(14);
             blockIDs.Add(15);
             blockIDs.Add(16);
-
+            
             
             OnChatEvent.Register(OnChat, Priority.High);
             OnBlockChangedEvent.Register(OnBlockChanged, Priority.High);
@@ -51,18 +50,16 @@ namespace PluginSignBlock
             return result;
         }
         
-        public static bool gettingSignText = false;
         public static string gotSignText = "";
         
-        public static ushort pubX = 0;
-        public static ushort pubY = 0;
-        public static ushort pubZ = 0;
+        public static List<string> selectingSigns = new List<string>();
         
-        public static void SubmitText(Player p, string text) {
-            gettingSignText = false;
+        public static void SubmitText(Player p, string text, string infos) {
+            selectingSigns.Remove(p.DisplayName);
             if (!text.Contains("/")) {
+                string[] info_args = infos.Split(' ');
                 p.Message("&aSign created. &7You can delete it by typing &a'/delete' &7to toggle delete mode, and then by punching it.");
-                MessageBlock.Set(p.Level.MapName, pubX, pubY, pubZ, "&7This sign says... &e" + text);
+                MessageBlock.Set(p.Level.MapName, Convert.ToUInt16(info_args[1]), Convert.ToUInt16(info_args[2]), Convert.ToUInt16(info_args[3]), "&7This sign says... &e" + text);
             } else {
                 p.Message("&cYou cannot put commands inside of signs.");
             }
@@ -70,20 +67,22 @@ namespace PluginSignBlock
     
         public static void OnChat(ChatScope scope, Player p, ref string msg, object arg, ref ChatMessageFilter filter, bool relay) {
             string cleaned = CleanChatMessage(msg);
-            if (gettingSignText == true) {
-                gotSignText = CleanChatMessage(msg);
-                msg = "";
-                SubmitText(p, gotSignText);
+            
+            foreach (string info in selectingSigns) {
+                if (info.Split(' ')[0] == p.DisplayName) {
+                    gotSignText = cleaned;
+                    msg = "";
+                    SubmitText(p, gotSignText, info);
+                }
             }
         }
         
         public static void OnBlockChanged(Player p, ushort x, ushort y, ushort z, ChangeResult result) {
-            int blockID = p.Level.GetBlock(x, y, z);
-            pubX = x; pubY = y; pubZ = z;
+            int blockID = p.Level.GetBlock(x, y, z); 
             if (result == ChangeResult.Modified) {
                 if (blockIDs.Contains(blockID)) {
                     p.Message("&7Enter the text for your sign in chat.");
-                    gettingSignText = true;
+                    selectingSigns.Add(p.DisplayName + " " + Convert.ToString(x) + " " + Convert.ToString(y) + " " + Convert.ToString(z));
                 }
             }
         }
