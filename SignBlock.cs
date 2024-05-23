@@ -8,7 +8,7 @@ using MCGalaxy.Blocks.Extended;
 using System.Reflection;
 
 // You'll have to edit some code to configure this onew
-// Dont worry, I laid it out easily. just scroll down past the name, version, and creator stuff.
+// Dont worry, I laid it out easily. just scroll down until you get to the Load method
 
 namespace PluginSignBlock
 {
@@ -20,17 +20,20 @@ namespace PluginSignBlock
 
         public override string creator { get { return "AllergenX"; } }
         
-        // CONFIGURATION IS DONE HERE
-        
-        // Leave it at 0 if you dont want to use
-        // Make sure you have set them as message blocks using blockproperties
-        public static int signBlockID1 = 0;
-        public static int signBlockID2 = 0;
-        public static int signBlockID3 = 0;
-        public static int signBlockID4 = 0;
-        public static int signBlockID5 = 0;
+        public static List<int> blockIDs = new List<int>();
 
         public override void Load(bool startup) {
+            // CONFIGURATION IS DONE HERE
+            // You know what to do to add more block IDs
+            // Remember that they are all message blocks, and remember to add each rotation of each block to
+            // this list and the block properties.
+            
+            // This example list just adds every ore
+            blockIDs.Add(14);
+            blockIDs.Add(15);
+            blockIDs.Add(16);
+
+            
             OnChatEvent.Register(OnChat, Priority.High);
             OnBlockChangedEvent.Register(OnBlockChanged, Priority.High);
         }
@@ -56,8 +59,12 @@ namespace PluginSignBlock
         
         public static void SubmitText(Player p, string text) {
             gettingSignText = false;
-            p.Message("&aSign created. &7You can delete it by typing &a'/delete' &7to toggle delete mode, and then by punching it.");
-            MessageBlock.Set(p.Level.MapName, pubX, pubY, pubZ, "&7This sign says... &e" + text);
+            if (!text.Contains("/")) {
+                p.Message("&aSign created. &7You can delete it by typing &a'/delete' &7to toggle delete mode, and then by punching it.");
+                MessageBlock.Set(p.Level.MapName, pubX, pubY, pubZ, "&7This sign says... &e" + text);
+            } else {
+                p.Message("&cYou cannot put commands inside of signs.");
+            }
         }
     
         public static void OnChat(ChatScope scope, Player p, ref string msg, object arg, ref ChatMessageFilter filter, bool relay) {
@@ -73,8 +80,7 @@ namespace PluginSignBlock
             int blockID = p.Level.GetBlock(x, y, z);
             pubX = x; pubY = y; pubZ = z;
             if (result == ChangeResult.Modified) {
-                // trigger warning, this next piece of code is a mess, oh well.
-                if (signBlockID1 != 0 && blockID == signBlockID1 || signBlockID2 != 0 && blockID == signBlockID2 || signBlockID3 != 0 && blockID == signBlockID3 || signBlockID4 != 0 && blockID == signBlockID4 || signBlockID5 != 0 && blockID == signBlockID5) {
+                if (blockIDs.Contains(blockID)) {
                     p.Message("&7Enter the text for your sign in chat.");
                     gettingSignText = true;
                 }
