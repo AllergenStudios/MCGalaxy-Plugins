@@ -55,13 +55,26 @@ namespace PluginSignBlock
         public static List<string> selectingSigns = new List<string>();
         
         public static void SubmitText(Player p, string text, string infos) {
-            selectingSigns.Remove(p.DisplayName);
             if (!text.Contains("/")) {
                 string[] info_args = infos.Split(' ');
                 p.Message("&aSign created. &7You can delete it by typing &a'/delete' &7to toggle delete mode, and then by punching it.");
                 MessageBlock.Set(p.Level.MapName, Convert.ToUInt16(info_args[1]), Convert.ToUInt16(info_args[2]), Convert.ToUInt16(info_args[3]), "&7This sign says... &e" + text);
+                int index = -1;
+                foreach (string info in selectingSigns) {
+                    index++;
+                    if (info.Split(' ')[0] == p.DisplayName) {
+                        selectingSigns.Remove(selectingSigns[index]);
+                    }
+                }
             } else {
                 p.Message("&cYou cannot put commands inside of signs.");
+                int index = -1;
+                foreach (string info in selectingSigns) {
+                    index++;
+                    if (info.Split(' ')[0] == p.DisplayName) {
+                        selectingSigns.Remove(selectingSigns[index]);
+                    }
+                }
             }
         }
     
